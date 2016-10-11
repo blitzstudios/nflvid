@@ -322,7 +322,7 @@ def slice(footage_play_dir, full_footage_file, gobj, coach=True,
 
 
 def slice_play(footage_play_dir, full_footage_file, gobj, play,
-               max_duration=0, cut_scoreboard=True, offset=0):
+               max_duration=0, cut_scoreboard=True, offset=0, overhead_only=True):
     """
     This is just like `nflvid.slice`, but it only slices the play
     provided.  In typical cases, `nflvid.slice` should be used since it
@@ -357,6 +357,9 @@ def slice_play(footage_play_dir, full_footage_file, gobj, play,
 
     if cut_scoreboard:
         st = st.add_seconds(3.0)
+
+    if overhead_only:
+        st = st.add_seconds(int(round((et.seconds() - st.seconds()) / 2)) + 2)
 
     dr = PlayTime(seconds=et.fractional() - st.fractional())
 
