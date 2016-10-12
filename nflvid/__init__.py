@@ -858,7 +858,7 @@ def _xml_plays(data, coach=True):
     """
     if data is None:
         return None
-    soup = bs4.BeautifulSoup(data)
+    soup = bs4.BeautifulSoup(data, "html.parser")
 
     game_end_time = soup.find('dataset').get('endtime', None)
     if game_end_time is not None:
