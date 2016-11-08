@@ -100,7 +100,11 @@ for info in nflgame.sched.games.itervalues():
     if args.teams is not None and len(args.teams.intersection(teams)) == 0:
         continue
 
-    g = nflgame.game.Game(info['eid'])
+    try:
+        g = nflgame.game.Game(info['eid'])
+    except Exception:
+        continue
+
     if g is None or not g.game_over():
         continue
     if not args.show_url and not args.progress and not args.files \
